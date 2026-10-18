@@ -1,0 +1,7 @@
+# 只连接你显式提供的数据库。先创建一个全新的空数据库；不要填写原若依的数据库。
+spring:
+  datasource:
+    url: ${MALL_DB_URL}
+    username: ${MALL_DB_USER}
+    password: ${MALL_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver

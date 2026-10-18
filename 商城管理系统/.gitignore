@@ -1,0 +1,8 @@
+.runtime/
+data/
+backend/data/
+backend/target/
+backend/.m2/
+frontend-vue3/node_modules/
+frontend-vue3/dist/
+*.log
