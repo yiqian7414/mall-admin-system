@@ -1,11 +1,6 @@
 # 商城管理系统
 
 基于 **Vue 3 + Spring Boot + MySQL / H2** 的前后端分离商城管理后台，面向商家管理员与员工，用于维护商品、分类、库存、订单及工作人员账号。
-
-**作品集页面：** https://mall-admin-portfolio-yiqian-20261018.yiqian7414.chatgpt.site
-
-**演示视频：** [观看完整操作演示（约 3 分 14 秒）](https://mall-admin-portfolio-yiqian-20261018.yiqian7414.chatgpt.site/assets/mall-demo.mp4)。成员姓名和分工暂不填写。
-
 ## 已实现功能
 
 | 模块 | 功能 |
