@@ -11,6 +11,7 @@ const links = computed(() => [
   { path: "/", label: "工作台", mark: "⌂" },
   { path: "/products", label: "商品管理", mark: "▦" },
   { path: "/categories", label: "商品分类", mark: "▤" },
+  { path: "/inventory", label: "库存管理", mark: "▧" },
   { path: "/orders", label: "订单管理", mark: "▣" },
   ...(session.user?.role === "ADMIN"
     ? [{ path: "/users", label: "账号管理", mark: "♙" }]

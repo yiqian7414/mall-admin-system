@@ -19,7 +19,7 @@ public class ProductRepository {
     private static final RowMapper<Product> MAPPER = (rs, row) -> new Product(rs.getLong("id"), rs.getString("name"),
             rs.getString("sku"), rs.getLong("category_id"), rs.getString("category_name"), rs.getBigDecimal("price"),
             rs.getInt("stock"), rs.getString("status"), rs.getString("description"),
-            rs.getTimestamp("created_at").toLocalDateTime());
+            rs.getTimestamp("created_at").toLocalDateTime(), rs.getString("image_url"));
 
     public ProductRepository(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
@@ -62,15 +62,15 @@ public class ProductRepository {
         var keys = new GeneratedKeyHolder();
         jdbc.update(connection -> {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO product(name, sku, category_id, price, stock, status, description) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO product(name, sku, category_id, price, stock, status, description, image_url) VALUES (?, ?, ?, ?, 0, ?, ?, ?)",
                     new String[] { "id" });
             statement.setString(1, input.name().trim());
             statement.setString(2, input.sku());
             statement.setLong(3, input.categoryId());
             statement.setBigDecimal(4, input.price());
-            statement.setInt(5, input.stock());
-            statement.setString(6, input.status());
-            statement.setString(7, input.description() == null ? "" : input.description().trim());
+            statement.setString(5, input.status());
+            statement.setString(6, input.description() == null ? "" : input.description().trim());
+            statement.setString(7, input.imageUrl() == null ? "" : input.imageUrl());
             return statement;
         }, keys);
         return keys.getKey().longValue();
@@ -78,22 +78,18 @@ public class ProductRepository {
 
     public void update(long id, ProductInput input) {
         jdbc.update(
-                "UPDATE product SET name = ?, sku = ?, category_id = ?, price = ?, stock = ?, status = ?, description = ? WHERE id = ?",
-                input.name().trim(), input.sku(), input.categoryId(), input.price(), input.stock(), input.status(),
-                input.description() == null ? "" : input.description().trim(), id);
+                "UPDATE product SET name = ?, sku = ?, category_id = ?, price = ?, status = ?, description = ?, image_url = ? WHERE id = ?",
+                input.name().trim(), input.sku(), input.categoryId(), input.price(), input.status(),
+                input.description() == null ? "" : input.description().trim(), input.imageUrl() == null ? "" : input.imageUrl(), id);
     }
 
-    public int deductStock(long id, int quantity) {
-        return jdbc.update("UPDATE product SET stock = stock - ? WHERE id = ? AND stock >= ? AND status = 'ON_SALE'",
-                quantity, id, quantity);
+    public int adjustStock(long id, int delta) {
+        return jdbc.update("UPDATE product SET stock = stock + ? WHERE id = ? AND stock + ? BETWEEN 0 AND 1000000000",
+                delta, id, delta);
     }
 
     public void updateStatus(long id, String status) {
         jdbc.update("UPDATE product SET status = ? WHERE id = ?", status, id);
-    }
-
-    public void restoreStock(long id, int quantity) {
-        jdbc.update("UPDATE product SET stock = stock + ? WHERE id = ?", quantity, id);
     }
 
     public long countOrderReferences(long id) {

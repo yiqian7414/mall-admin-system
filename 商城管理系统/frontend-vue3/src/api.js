@@ -28,12 +28,13 @@ export async function refreshCsrfToken() {
 }
 
 export async function api(path, { method = "GET", body, form = false } = {}) {
+  const multipart = body instanceof FormData;
   const headers = { Accept: "application/json" };
   if (!["GET", "HEAD"].includes(method)) {
     if (!csrfToken) await refreshCsrfToken();
     headers["X-CSRF-TOKEN"] = csrfToken;
   }
-  if (body !== undefined)
+  if (body !== undefined && !multipart)
     headers["Content-Type"] = form
       ? "application/x-www-form-urlencoded;charset=UTF-8"
       : "application/json";
@@ -46,9 +47,11 @@ export async function api(path, { method = "GET", body, form = false } = {}) {
       body:
         body === undefined
           ? undefined
-          : form
-            ? new URLSearchParams(body).toString()
-            : JSON.stringify(body),
+          : multipart
+            ? body
+            : form
+              ? new URLSearchParams(body).toString()
+              : JSON.stringify(body),
     });
   } catch {
     throw new Error("无法连接后台服务，请确认后端已启动。");

@@ -16,10 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class CatalogService {
     private final CategoryRepository categories;
     private final ProductRepository products;
+    private final com.example.mall.repository.StockRepository movements;
+    private final ProductImageService images;
 
-    public CatalogService(CategoryRepository categories, ProductRepository products) {
+    public CatalogService(CategoryRepository categories, ProductRepository products,
+            com.example.mall.repository.StockRepository movements, ProductImageService images) {
         this.categories = categories;
         this.products = products;
+        this.movements = movements;
+        this.images = images;
     }
 
     public List<Category> categories() {
@@ -60,6 +65,7 @@ public class CatalogService {
     @Transactional
     public Product createProduct(ProductInput input) {
         category(input.categoryId());
+        images.validateReference(input.imageUrl());
         return product(products.insert(input));
     }
 
@@ -67,13 +73,16 @@ public class CatalogService {
     public Product updateProduct(long id, ProductInput input) {
         products.lockById(id).orElseThrow(() -> BusinessException.notFound("商品不存在"));
         category(input.categoryId());
+        images.validateReference(input.imageUrl());
         products.update(id, input);
         return product(id);
     }
 
     @Transactional
     public void deleteProduct(long id) {
-        products.lockById(id).orElseThrow(() -> BusinessException.notFound("商品不存在"));
+        var product = products.lockById(id).orElseThrow(() -> BusinessException.notFound("商品不存在"));
+        if (product.stock() != 0 || movements.countByProduct(id) > 0)
+            throw BusinessException.conflict("商品仍有库存或库存流水，请下架以保留业务记录");
         if (products.countOrderReferences(id) > 0) {
             throw BusinessException.conflict("商品已被订单引用，请将商品下架以保留订单记录");
         }

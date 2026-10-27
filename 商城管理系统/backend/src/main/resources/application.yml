@@ -8,6 +8,10 @@ server:
         http-only: true
         same-site: lax
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
   application:
     name: mall-backend
   datasource:

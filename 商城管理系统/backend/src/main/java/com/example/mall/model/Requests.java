@@ -18,9 +18,18 @@ public final class Requests {
             @NotBlank(message = "请填写商品编号") @Pattern(regexp = "[A-Za-z0-9_-]{1,50}", message = "商品编号仅支持 1 至 50 位字母、数字、下划线和短横线") String sku,
             @NotNull(message = "请选择分类") @Positive(message = "分类编号无效") Long categoryId,
             @NotNull(message = "请填写商品价格") @DecimalMin(value = "0.00", message = "商品价格不能小于 0") @Digits(integer = 10, fraction = 2, message = "价格最多 10 位整数和 2 位小数") BigDecimal price,
-            @NotNull(message = "请填写库存") @Min(value = 0, message = "库存不能小于 0") @Max(value = 1000000000, message = "库存不能超过 10 亿") Integer stock,
+            @Pattern(regexp = "^$|/api/product-images/[a-f0-9-]{36}\\.png", message = "请先上传有效的商品图片") String imageUrl,
             @NotNull(message = "请选择商品状态") @Pattern(regexp = "ON_SALE|OFF_SALE", message = "商品状态无效") String status,
             @Size(max = 1000, message = "商品说明最多 1000 个字符") String description) {
+    }
+
+    public record StockInput(
+            @NotNull(message = "请选择商品") @Positive Long productId,
+            @NotNull(message = "请选择出入库类型") @Pattern(regexp = "INBOUND|OUTBOUND") String type,
+            @NotNull(message = "请填写数量") @Min(1) @Max(1000000000) Integer quantity,
+            @NotBlank(message = "请选择出入库原因") @Size(max = 80) String reason,
+            @Size(max = 200, message = "备注最多 200 字") String remark,
+            @NotBlank @Pattern(regexp = "[a-f0-9-]{36}") String requestId) {
     }
 
     public record OrderLineInput(@NotNull(message = "请选择商品") @Positive(message = "商品编号无效") Long productId,

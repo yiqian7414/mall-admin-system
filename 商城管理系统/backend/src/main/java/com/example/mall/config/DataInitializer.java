@@ -14,20 +14,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 /** 只在全新项目数据库中执行一次；标记保存在数据库中，重启不会覆盖用户修改。 */
 @Component
+@org.springframework.core.annotation.Order(0)
 public class DataInitializer implements ApplicationRunner {
     private final JdbcTemplate jdbc;
     private final UserRepository users;
     private final CategoryRepository categories;
     private final ProductRepository products;
     private final PasswordEncoder encoder;
+    private final com.example.mall.service.InventoryService inventory;
 
     public DataInitializer(JdbcTemplate jdbc, UserRepository users, CategoryRepository categories,
-            ProductRepository products, PasswordEncoder encoder) {
+            ProductRepository products, PasswordEncoder encoder, com.example.mall.service.InventoryService inventory) {
         this.jdbc = jdbc;
         this.users = users;
         this.categories = categories;
         this.products = products;
         this.encoder = encoder;
+        this.inventory = inventory;
     }
 
     @Override
@@ -41,12 +44,14 @@ public class DataInitializer implements ApplicationRunner {
         users.insert("staff", "商城员工", encoder.encode("Staff@123456"), "STAFF", true);
         long digital = categories.insert("数码配件", "键盘、鼠标等电脑周边");
         long daily = categories.insert("生活用品", "日常生活好物");
-        products.insert(
-                new ProductInput("无线鼠标", "MOUSE-001", digital, new BigDecimal("59.00"), 50, "ON_SALE", "轻巧便携，适合办公"));
-        products.insert(
-                new ProductInput("机械键盘", "KEYBOARD-001", digital, new BigDecimal("199.00"), 20, "ON_SALE", "清晰按键反馈"));
-        products.insert(
-                new ProductInput("保温杯", "CUP-001", daily, new BigDecimal("89.00"), 4, "ON_SALE", "500ml 不锈钢保温杯"));
+        seed(new ProductInput("无线鼠标", "MOUSE-001", digital, new BigDecimal("59.00"), "", "ON_SALE", "轻巧便携，适合办公"), 50);
+        seed(new ProductInput("机械键盘", "KEYBOARD-001", digital, new BigDecimal("199.00"), "", "ON_SALE", "清晰按键反馈"), 20);
+        seed(new ProductInput("保温杯", "CUP-001", daily, new BigDecimal("89.00"), "", "ON_SALE", "500ml 不锈钢保温杯"), 4);
         jdbc.update("INSERT INTO app_setting(setting_key, setting_value) VALUES ('bootstrap_v1', 'complete')");
+    }
+
+    private void seed(ProductInput input, int quantity) {
+        long id = products.insert(input);
+        inventory.move(id, quantity, "INBOUND", "BOOTSTRAP-" + input.sku(), "初始演示入库", "");
     }
 }

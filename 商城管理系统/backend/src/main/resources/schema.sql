@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS product (
     stock INT NOT NULL,
     status VARCHAR(20) NOT NULL,
     description VARCHAR(1000) NOT NULL DEFAULT '',
+    image_url VARCHAR(255) NOT NULL DEFAULT '',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_product_category FOREIGN KEY (category_id) REFERENCES category(id)
 );
@@ -53,4 +54,22 @@ CREATE TABLE IF NOT EXISTS order_item (
     line_total DECIMAL(18, 2) NOT NULL,
     CONSTRAINT fk_item_order FOREIGN KEY (order_id) REFERENCES mall_order(id),
     CONSTRAINT fk_item_product FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+CREATE TABLE IF NOT EXISTS stock_movement (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_id BIGINT NOT NULL,
+    product_name VARCHAR(100) NOT NULL,
+    sku VARCHAR(50) NOT NULL,
+    type VARCHAR(30) NOT NULL,
+    delta INT NOT NULL,
+    before_stock INT NOT NULL,
+    after_stock INT NOT NULL,
+    reference VARCHAR(80) NOT NULL,
+    reason VARCHAR(80) NOT NULL,
+    remark VARCHAR(200) NOT NULL DEFAULT '',
+    operator VARCHAR(60) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_movement_product FOREIGN KEY (product_id) REFERENCES product(id),
+    CONSTRAINT uk_movement_reference UNIQUE (product_id, type, reference)
 );

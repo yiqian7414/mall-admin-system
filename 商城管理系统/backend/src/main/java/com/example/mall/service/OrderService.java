@@ -27,10 +27,12 @@ public class OrderService {
             List.of());
     private final OrderRepository orders;
     private final ProductRepository products;
+    private final InventoryService inventory;
 
-    public OrderService(OrderRepository orders, ProductRepository products) {
+    public OrderService(OrderRepository orders, ProductRepository products, InventoryService inventory) {
         this.orders = orders;
         this.products = products;
+        this.inventory = inventory;
     }
 
     public Page<Order> findPage(String keyword, String status, int page, int size) {
@@ -56,6 +58,8 @@ public class OrderService {
         var lines = input.items().stream().sorted(Comparator.comparing(OrderLineInput::productId)).toList();
         var snapshots = new ArrayList<OrderItem>();
         BigDecimal total = new BigDecimal("0.00");
+        String orderNo = "M" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))
+                + UUID.randomUUID().toString().substring(0, 8).toUpperCase(java.util.Locale.ROOT);
         for (OrderLineInput line : lines) {
             var product = products.lockById(line.productId())
                     .orElseThrow(() -> BusinessException.notFound("订单中的商品不存在"));
@@ -63,10 +67,7 @@ public class OrderService {
                 throw BusinessException.conflict(product.name() + "已下架");
             if (product.stock() < line.quantity())
                 throw BusinessException.conflict(product.name() + "库存不足");
-            // 行锁之外，再用条件 UPDATE 确保库存不可能被减成负数。
-            if (products.deductStock(product.id(), line.quantity()) != 1) {
-                throw BusinessException.conflict(product.name() + "库存或状态已变化，请刷新后重试");
-            }
+            inventory.move(product.id(), -line.quantity(), "ORDER_DEDUCT", orderNo, "创建订单扣减", "");
             BigDecimal lineTotal = product.price().multiply(BigDecimal.valueOf(line.quantity()));
             snapshots.add(new OrderItem(product.id(), product.name(), product.price(), line.quantity(), lineTotal));
             total = total.add(lineTotal);
@@ -74,8 +75,6 @@ public class OrderService {
         if (total.compareTo(new BigDecimal("9999999999999999.99")) > 0) {
             throw BusinessException.badRequest("订单总金额超出允许范围，请拆分订单");
         }
-        String orderNo = "M" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"))
-                + UUID.randomUUID().toString().substring(0, 8).toUpperCase(java.util.Locale.ROOT);
         long id = orders.insert(orderNo, input, total);
         for (OrderItem item : snapshots)
             orders.insertItem(id, item);
@@ -91,7 +90,7 @@ public class OrderService {
         if (targetStatus.equals("CANCELLED")) {
             for (OrderItem item : order.items().stream().sorted(Comparator.comparing(OrderItem::productId)).toList()) {
                 products.lockById(item.productId()).orElseThrow(() -> BusinessException.conflict("订单商品不存在，无法归还库存"));
-                products.restoreStock(item.productId(), item.quantity());
+                inventory.move(item.productId(), item.quantity(), "ORDER_RETURN", order.orderNo(), "取消订单归还", "");
             }
         }
         orders.updateStatus(id, targetStatus);

@@ -7,6 +7,121 @@
   --border: #e8edf4;
   --muted: #8893a4;
 }
+.product-photo {
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.product-image-picker {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.product-image-picker > div {
+  flex: 1;
+  min-width: 200px;
+}
+.product-image-picker small {
+  display: block;
+  margin: 8px 0;
+  color: #69778c;
+}
+.image-preview {
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+  border: 1px solid #e8edf4;
+  border-radius: 8px;
+  background: #f4f6fa;
+}
+.inventory-notice {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  margin: 16px 0;
+  background: #edf3ff;
+  border-radius: 8px;
+  color: #294b91;
+}
+.inventory-notice a {
+  color: #3267e3;
+}
+.inventory-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.inventory-actions input {
+  flex: 1;
+  min-width: 120px;
+}
+.inventory-tabs {
+  display: flex;
+  gap: 20px;
+  padding: 0 24px;
+  border-bottom: 1px solid #e8edf4;
+}
+.inventory-tabs button {
+  padding: 14px 2px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #69778c;
+}
+.inventory-tabs button.selected {
+  color: #3267e3;
+  border-bottom-color: #3267e3;
+  font-weight: 600;
+}
+.inventory-filters {
+  flex-wrap: wrap;
+}
+.inventory-filters input {
+  width: 180px;
+}
+.inventory-filters select {
+  width: 150px;
+}
+.movement-table {
+  min-width: 1120px;
+}
+.movement-table th,
+.movement-table td {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.movement-table td:nth-child(2),
+.movement-table td:nth-child(3),
+.movement-table td:nth-child(4),
+.movement-table td:nth-child(5),
+.movement-table td:nth-child(8),
+.movement-table td:nth-child(9) {
+  white-space: nowrap;
+}
+.movement-table td:first-child {
+  min-width: 150px;
+}
+.filter-bar.inventory-filters {
+  padding-top: 18px;
+}
+.movement-reference {
+  max-width: 210px;
+  overflow-wrap: anywhere;
+}
+.movement-delta {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.stock-in {
+  color: #08795d;
+}
+.stock-out {
+  color: #c73c4b;
+}
 * {
   box-sizing: border-box;
 }

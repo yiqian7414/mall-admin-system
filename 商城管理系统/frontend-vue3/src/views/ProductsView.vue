@@ -1,10 +1,40 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { api, query } from "../api";
 import { money } from "../format";
 import { notify, confirmAction } from "../feedback";
 import BaseModal from "../components/BaseModal.vue";
 import PaginationBar from "../components/PaginationBar.vue";
+import ProductThumbnail from "../components/ProductThumbnail.vue";
+const imageFile = ref(null),
+  imagePreview = ref("");
+function clearPreview() {
+  if (imagePreview.value) URL.revokeObjectURL(imagePreview.value);
+  imagePreview.value = "";
+  imageFile.value = null;
+}
+function selectImage(event) {
+  const file = event.target.files?.[0];
+  event.target.value = "";
+  if (!file) return;
+  if (
+    !/\.(jpe?g|png|webp)$/i.test(file.name) ||
+    file.size > 5 * 1024 * 1024 ||
+    !file.size
+  ) {
+    formError.value = "请选择不超过 5 MB 的 JPG、PNG 或 WebP 图片。";
+    return;
+  }
+  clearPreview();
+  imageFile.value = file;
+  imagePreview.value = URL.createObjectURL(file);
+  formError.value = "";
+}
+function removeImage() {
+  clearPreview();
+  draft.imageUrl = "";
+}
+onUnmounted(clearPreview);
 const products = ref([]),
   categories = ref([]),
   total = ref(0),
@@ -24,6 +54,7 @@ const draft = reactive({
   categoryId: "",
   price: "",
   stock: 0,
+  imageUrl: "",
   status: "ON_SALE",
   description: "",
 });
@@ -64,6 +95,7 @@ function resetFilters() {
   load(1);
 }
 async function edit(product = null) {
+  clearPreview();
   Object.assign(draft, {
     id: product?.id ?? null,
     name: product?.name ?? "",
@@ -71,7 +103,8 @@ async function edit(product = null) {
     categoryId: product?.categoryId ?? "",
     price: product?.price ?? "",
     stock: product?.stock ?? 0,
-    status: product?.status ?? "ON_SALE",
+    imageUrl: product?.imageUrl ?? "",
+    status: product?.status ?? "OFF_SALE",
     description: product?.description ?? "",
   });
   formError.value = "";
@@ -84,7 +117,7 @@ function payload(product) {
     sku: product.sku.trim(),
     categoryId: Number(product.categoryId),
     price: Number(product.price),
-    stock: Number(product.stock),
+    imageUrl: product.imageUrl || "",
     status: product.status,
     description: product.description?.trim() || "",
   };
@@ -98,12 +131,26 @@ async function save() {
   saving.value = true;
   formError.value = "";
   try {
+    if (imageFile.value) {
+      const upload = new FormData();
+      upload.append("file", imageFile.value);
+      const uploaded = await api("/product-images", {
+        method: "POST",
+        body: upload,
+      });
+      draft.imageUrl = uploaded.imageUrl;
+      clearPreview();
+    }
     await api(draft.id ? `/products/${draft.id}` : "/products", {
       method: draft.id ? "PUT" : "POST",
       body: payload(draft),
     });
     open.value = false;
-    notify(draft.id ? "商品已更新。" : "商品已创建。");
+    notify(
+      draft.id
+        ? "商品已更新，库存保持不变。"
+        : "商品已创建，库存为 0，请到库存管理办理入库。",
+    );
     await load(draft.id ? page.value : 1);
   } catch (cause) {
     formError.value = cause.message;
@@ -139,7 +186,7 @@ async function remove(product) {
   if (
     !(await confirmAction(
       "删除商品",
-      `确认删除“${product.name}”？已被订单引用的商品不能删除，可改为下架。`,
+      `确认删除“${product.name}”？有库存、库存流水或订单引用的商品不能删除，可改为下架。`,
       true,
     ))
   )
@@ -218,9 +265,10 @@ onMounted(() => Promise.all([load(), loadCategories()]));
           <tr v-for="product in products" :key="product.id">
             <td>
               <div class="product-cell">
-                <span class="product-thumbnail">{{
-                  product.name.slice(0, 1)
-                }}</span>
+                <ProductThumbnail
+                  :image-url="product.imageUrl"
+                  :name="product.name"
+                />
                 <div>
                   <strong>{{ product.name }}</strong
                   ><small class="cell-note">SKU：{{ product.sku }}</small>
@@ -288,6 +336,7 @@ onMounted(() => Promise.all([load(), loadCategories()]));
           ><input
             id="product-name"
             v-model="draft.name"
+            :disabled="saving"
             maxlength="100"
             required
             placeholder="请输入商品名称"
@@ -298,6 +347,7 @@ onMounted(() => Promise.all([load(), loadCategories()]));
           ><input
             id="product-sku"
             v-model="draft.sku"
+            :disabled="saving"
             maxlength="50"
             pattern="[A-Za-z0-9_\-]+"
             required
@@ -306,7 +356,12 @@ onMounted(() => Promise.all([load(), loadCategories()]));
         </div>
         <div class="field">
           <label for="product-category">商品分类 <span>*</span></label
-          ><select id="product-category" v-model="draft.categoryId" required>
+          ><select
+            id="product-category"
+            v-model="draft.categoryId"
+            required
+            :disabled="saving"
+          >
             <option value="" disabled>请选择分类</option>
             <option
               v-for="category in categories"
@@ -322,6 +377,7 @@ onMounted(() => Promise.all([load(), loadCategories()]));
           ><input
             id="product-price"
             v-model="draft.price"
+            :disabled="saving"
             type="number"
             min="0"
             max="9999999999.99"
@@ -331,34 +387,68 @@ onMounted(() => Promise.all([load(), loadCategories()]));
           />
         </div>
         <div class="field">
-          <label for="product-stock">库存数量 <span>*</span></label
-          ><input
-            id="product-stock"
-            v-model="draft.stock"
-            type="number"
-            min="0"
-            max="1000000000"
-            step="1"
-            required
-          />
-        </div>
-        <div class="field">
           <label for="product-status">商品状态</label
-          ><select id="product-status" v-model="draft.status">
+          ><select
+            id="product-status"
+            v-model="draft.status"
+            :disabled="saving"
+          >
             <option value="ON_SALE">上架销售</option>
             <option value="OFF_SALE">暂时下架</option>
           </select>
+        </div>
+        <div class="field full-width">
+          <label for="product-image">商品图片（选填）</label>
+          <div class="product-image-picker">
+            <img
+              v-if="imagePreview || draft.imageUrl"
+              :src="imagePreview || draft.imageUrl"
+              alt="商品图片预览"
+              class="image-preview"
+            />
+            <div>
+              <input
+                id="product-image"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                :disabled="saving"
+                @change="selectImage"
+              />
+              <small
+                >支持 JPG / PNG / WebP，单张不超过 5 MB，宽高不超过 4096
+                像素。</small
+              >
+              <small v-if="imageFile">已选择：{{ imageFile.name }}</small>
+              <button
+                v-if="imagePreview || draft.imageUrl"
+                type="button"
+                class="button secondary"
+                :disabled="saving"
+                @click="removeImage"
+              >
+                移除图片
+              </button>
+            </div>
+          </div>
         </div>
         <div class="field full-width">
           <label for="product-description">商品说明</label
           ><textarea
             id="product-description"
             v-model="draft.description"
+            :disabled="saving"
             maxlength="1000"
             rows="3"
             placeholder="填写商品的补充说明"
           ></textarea>
         </div>
+      </div>
+      <div class="inventory-notice">
+        <span v-if="draft.id">当前库存：{{ draft.stock }} 件（仅供查看）</span>
+        <span v-else>新商品库存为 0，保存后请办理入库。</span>
+        <RouterLink v-if="!saving" to="/inventory" @click="open = false"
+          >去库存管理 →</RouterLink
+        >
       </div>
       <p v-if="formError" class="inline-error" role="alert">{{ formError }}</p>
       <div class="form-actions">

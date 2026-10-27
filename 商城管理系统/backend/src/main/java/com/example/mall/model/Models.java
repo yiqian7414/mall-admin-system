@@ -20,7 +20,12 @@ public final class Models {
     }
 
     public record Product(long id, String name, String sku, long categoryId, String categoryName, BigDecimal price,
-            int stock, String status, String description, LocalDateTime createdAt) {
+            int stock, String status, String description, LocalDateTime createdAt, String imageUrl) {
+    }
+
+    public record StockMovement(long id, long productId, String productName, String sku, String type, int delta,
+            int beforeStock, int afterStock, String reference, String reason, String remark, String operator,
+            LocalDateTime createdAt) {
     }
 
     public record OrderItem(long productId, String productName, BigDecimal unitPrice, int quantity,

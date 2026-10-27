@@ -20,6 +20,17 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 public class ApiExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
+    @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
+    ResponseEntity<Map<String, String>> uploadTooLarge(Exception exception) {
+        return response(HttpStatus.PAYLOAD_TOO_LARGE, "图片不能超过 5 MB");
+    }
+
+    @ExceptionHandler({org.springframework.web.bind.MissingServletRequestParameterException.class,
+            org.springframework.web.multipart.support.MissingServletRequestPartException.class})
+    ResponseEntity<Map<String, String>> missingParameter(Exception exception) {
+        return response(HttpStatus.BAD_REQUEST, "缺少必要参数，请检查输入");
+    }
+
     @ExceptionHandler(BusinessException.class)
     ResponseEntity<Map<String, String>> business(BusinessException exception) {
         return response(exception.status(), exception.getMessage());

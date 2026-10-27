@@ -27,7 +27,7 @@ const router = createRouter({
           component: () => import("./views/ProductsView.vue"),
           meta: {
             title: "商品管理",
-            subtitle: "管理商品信息、库存与上下架状态",
+            subtitle: "管理商品资料、图片与上下架状态，库存通过出入库变更",
           },
         },
         {
@@ -36,6 +36,14 @@ const router = createRouter({
           meta: {
             title: "商品分类",
             subtitle: "建立清晰的商品分类，方便日常管理",
+          },
+        },
+        {
+          path: "inventory",
+          component: () => import("./views/InventoryView.vue"),
+          meta: {
+            title: "库存管理",
+            subtitle: "办理商品出入库，追踪每一笔库存变化",
           },
         },
         {

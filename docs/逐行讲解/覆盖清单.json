@@ -1,0 +1,404 @@
+[
+  {
+    "file": ".gitignore",
+    "lines": 8,
+    "sha256": "5a5e9e26534acddc978ebcf3d94fc201fc8c683e8fa9a00c9450b90a742b9ba4",
+    "chapter": "-gitignore.md"
+  },
+  {
+    "file": "backend/.gitignore",
+    "lines": 6,
+    "sha256": "483ac8da310cd9ff5e948c3f9d7dd16f505d813f40e97bd205279ee1e06956ba",
+    "chapter": "backend---gitignore.md"
+  },
+  {
+    "file": "backend/pom.xml",
+    "lines": 70,
+    "sha256": "6c9cb13e71ec723778df6eb13bf3c3ddfe16c0c36df4408e1648c6858f77f2f3",
+    "chapter": "backend--pom-xml.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/MallApplication.java",
+    "lines": 11,
+    "sha256": "0e9cd6469c733e360fe8e4d4b1ae81b35d91802c699df6684d55e868236e22b0",
+    "chapter": "backend--src--main--java--com--example--mall--MallApplication-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/common/ApiExceptionHandler.java",
+    "lines": 80,
+    "sha256": "ef7e7fcc5ee444a61da95ea5078c5c51d21661056df5f9988c5820fb604fdcb3",
+    "chapter": "backend--src--main--java--com--example--mall--common--ApiExceptionHandler-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/common/BusinessException.java",
+    "lines": 28,
+    "sha256": "e40553e47ac909c0c8d41643eb62df81fd59aadc7af830e9f65a685f35e1ac57",
+    "chapter": "backend--src--main--java--com--example--mall--common--BusinessException-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/config/DataInitializer.java",
+    "lines": 57,
+    "sha256": "26be80dc1697f1681129d76860404debf0ad19a90d7a62e3a8c2adf955bcddbb",
+    "chapter": "backend--src--main--java--com--example--mall--config--DataInitializer-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/config/InventoryMigration.java",
+    "lines": 25,
+    "sha256": "b3a753f39b2e2f7dc264527443a7f484fab2628378da84c3a9b8f7dd28e0ca9a",
+    "chapter": "backend--src--main--java--com--example--mall--config--InventoryMigration-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/config/MallPrincipal.java",
+    "lines": 41,
+    "sha256": "447103cb8a65f4afed3d45e54a9678a1bcd8706fbfa98ebb0a726ceb5126402b",
+    "chapter": "backend--src--main--java--com--example--mall--config--MallPrincipal-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/config/OpeningInventory.java",
+    "lines": 23,
+    "sha256": "8b25422d33926906d97eb9f428b303708f3f5c70515732e992867e067377a6a6",
+    "chapter": "backend--src--main--java--com--example--mall--config--OpeningInventory-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/config/SecurityConfig.java",
+    "lines": 65,
+    "sha256": "16293a80697fb438851cc541bbaab7e435ae782c6278b2786307a1c5989daacf",
+    "chapter": "backend--src--main--java--com--example--mall--config--SecurityConfig-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/config/SessionAccountFilter.java",
+    "lines": 49,
+    "sha256": "fbf1dc14f57bbd42ce51c8b1d60f574d4324363555527f5e5eec6ee84381f29b",
+    "chapter": "backend--src--main--java--com--example--mall--config--SessionAccountFilter-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/AuthController.java",
+    "lines": 24,
+    "sha256": "ad07429a3a7fa6da1a509e88b52088088ace915fa5b02db48039a2b67d78e349",
+    "chapter": "backend--src--main--java--com--example--mall--controller--AuthController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/CatalogController.java",
+    "lines": 74,
+    "sha256": "730e60381e557e025852ff5cf722a3750f555e5d72887fad68274ce072a4cb56",
+    "chapter": "backend--src--main--java--com--example--mall--controller--CatalogController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/DashboardController.java",
+    "lines": 22,
+    "sha256": "e89e05bee1d255cf9e0b97435f720673ea8c031e3e119caf996438a04f7e4585",
+    "chapter": "backend--src--main--java--com--example--mall--controller--DashboardController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/HealthController.java",
+    "lines": 13,
+    "sha256": "e28409004ac8c513405d1b7bab994a41b5805b819af1087bf2aedc3fe5ba3740",
+    "chapter": "backend--src--main--java--com--example--mall--controller--HealthController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/InventoryController.java",
+    "lines": 31,
+    "sha256": "77f7b151da441a984428703357c3086c173359896fff3e609966cf62b65f89cc",
+    "chapter": "backend--src--main--java--com--example--mall--controller--InventoryController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/OrderController.java",
+    "lines": 43,
+    "sha256": "46a36dc1b50784abdd1e616a986ac23696abaec219ddb66c05988488cdd6a867",
+    "chapter": "backend--src--main--java--com--example--mall--controller--OrderController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/ProductImageController.java",
+    "lines": 29,
+    "sha256": "dd002ba860bafbf6b81a3a782846bd083979f574b9f928efcad9453546a166c7",
+    "chapter": "backend--src--main--java--com--example--mall--controller--ProductImageController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/controller/UserController.java",
+    "lines": 45,
+    "sha256": "9eb70684cdbe44bd891dfaf21d05a2a1434904cd0d0df1bdd5cedff3ef777081",
+    "chapter": "backend--src--main--java--com--example--mall--controller--UserController-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/model/Models.java",
+    "lines": 45,
+    "sha256": "797853c44add968b0e79cb843f471926b0525b9bf94356d5df6f046042481da1",
+    "chapter": "backend--src--main--java--com--example--mall--model--Models-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/model/Requests.java",
+    "lines": 67,
+    "sha256": "c9ec682cb6654ed0ca32524f6bc9c6473cf7391dfc748d036ba7c4a62b6d87e5",
+    "chapter": "backend--src--main--java--com--example--mall--model--Requests-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/repository/CategoryRepository.java",
+    "lines": 53,
+    "sha256": "860edf43870dcb8e76512ef675db9efc741886575cabed1669798714572a39d9",
+    "chapter": "backend--src--main--java--com--example--mall--repository--CategoryRepository-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/repository/OrderRepository.java",
+    "lines": 102,
+    "sha256": "8e5cb42f0997256378cdfd1ca2975aa1e9901cdc505d19faf78fda9aa1b0c082",
+    "chapter": "backend--src--main--java--com--example--mall--repository--OrderRepository-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/repository/ProductRepository.java",
+    "lines": 110,
+    "sha256": "6a241e9c0b5b6f5f6d88b040d4fe5b8b0b2db718ee2a6acece8cfa878029ada5",
+    "chapter": "backend--src--main--java--com--example--mall--repository--ProductRepository-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/repository/StockRepository.java",
+    "lines": 57,
+    "sha256": "b42afc6486aec2497870830b596520c3af0f3daa7d8d8ce82c9c6dbb53eec698",
+    "chapter": "backend--src--main--java--com--example--mall--repository--StockRepository-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/repository/UserRepository.java",
+    "lines": 65,
+    "sha256": "d4ef95a1536accaab39ffe5d089f1fef3ca5f757f7c253307a9f142c118252c3",
+    "chapter": "backend--src--main--java--com--example--mall--repository--UserRepository-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/service/CatalogService.java",
+    "lines": 115,
+    "sha256": "82cf887bc64a61aa9ec0a57f15a3d88762e0cadc2c573b9986ce475663bc939f",
+    "chapter": "backend--src--main--java--com--example--mall--service--CatalogService-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/service/DashboardService.java",
+    "lines": 37,
+    "sha256": "951cf63c587ededb2d5aea29707cb3fd184d77a3c2a43aba68f6c88879296e1e",
+    "chapter": "backend--src--main--java--com--example--mall--service--DashboardService-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/service/InventoryService.java",
+    "lines": 61,
+    "sha256": "41df00e1e680860813fce77dd15ddd13d65eb7611d828296497c65f8c47b53d3",
+    "chapter": "backend--src--main--java--com--example--mall--service--InventoryService-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/service/OrderService.java",
+    "lines": 99,
+    "sha256": "aa8f3ead9edf85499529f31e4a5d806927c9adfd0d00ed055f51063f7a44a1dc",
+    "chapter": "backend--src--main--java--com--example--mall--service--OrderService-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/service/ProductImageService.java",
+    "lines": 65,
+    "sha256": "54d2c1e856b091bf57628e1574eb8f1babcb9ab4f5bee44065b9c856d2663840",
+    "chapter": "backend--src--main--java--com--example--mall--service--ProductImageService-java.md"
+  },
+  {
+    "file": "backend/src/main/java/com/example/mall/service/UserService.java",
+    "lines": 73,
+    "sha256": "5ceb21604f9b65510b35bb0243d2ea7582d317a3c538b34121a4255bcebb9486",
+    "chapter": "backend--src--main--java--com--example--mall--service--UserService-java.md"
+  },
+  {
+    "file": "backend/src/main/resources/application-mysql.yml",
+    "lines": 7,
+    "sha256": "752374fa74bc0da4e994344db9d21569c4f775016e3dacfdbdfd8af5a05186d1",
+    "chapter": "backend--src--main--resources--application-mysql-yml.md"
+  },
+  {
+    "file": "backend/src/main/resources/application.yml",
+    "lines": 35,
+    "sha256": "ed077a0a9e2a06b32232c4f9adba0841eaa9387c69ee7be649ffa972650b16f6",
+    "chapter": "backend--src--main--resources--application-yml.md"
+  },
+  {
+    "file": "backend/src/main/resources/schema.sql",
+    "lines": 75,
+    "sha256": "4f0e5d8f3d9c3b90d87c0ebf3af386c57d538f1465643e061533609a73c88f81",
+    "chapter": "backend--src--main--resources--schema-sql.md"
+  },
+  {
+    "file": "backend/src/test/java/com/example/mall/MallIntegrationTest.java",
+    "lines": 514,
+    "sha256": "86302a0e7fc97074d112dfd304ac88bdeaceca265d5a9d52309300d00a2e1c8f",
+    "chapter": "backend--src--test--java--com--example--mall--MallIntegrationTest-java.md"
+  },
+  {
+    "file": "frontend-vue3/.gitignore",
+    "lines": 39,
+    "sha256": "aaf850032ebd5ba963ab779a087807f817e1bcb5d49350d2087f12f591ca82ef",
+    "chapter": "frontend-vue3---gitignore.md"
+  },
+  {
+    "file": "frontend-vue3/index.html",
+    "lines": 12,
+    "sha256": "682c9965800ed6f304d0a02751c87c643e5c39399fe9d4975a3c1c5004162c63",
+    "chapter": "frontend-vue3--index-html.md"
+  },
+  {
+    "file": "frontend-vue3/package.json",
+    "lines": 22,
+    "sha256": "ede12295c93795a88b65f94c8c0ab8bcc3fc7596d6c6b3d2dac376f5448f8b21",
+    "chapter": "frontend-vue3--package-json.md"
+  },
+  {
+    "file": "frontend-vue3/src/App.vue",
+    "lines": 10,
+    "sha256": "cf43cca5e85d6738e892b466757edfa81fe6aba498095cd51c1aeed31bd19db5",
+    "chapter": "frontend-vue3--src--App-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/api.js",
+    "lines": 84,
+    "sha256": "02b230af9a11dbc3cdde4991fec538a453e924fe12ffb5b9f6f119f06137d75d",
+    "chapter": "frontend-vue3--src--api-js.md"
+  },
+  {
+    "file": "frontend-vue3/src/components/AdminLayout.vue",
+    "lines": 104,
+    "sha256": "68a19a8a9192926cf778ea48ab21c67ca2314e803f24c27869879b56bd52ccd4",
+    "chapter": "frontend-vue3--src--components--AdminLayout-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/components/BaseModal.vue",
+    "lines": 79,
+    "sha256": "b444fd3f9bec3293fe5d21b783165b814fdd9bee1ddf81fa1aae941a7e9ceb60",
+    "chapter": "frontend-vue3--src--components--BaseModal-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/components/ConfirmDialog.vue",
+    "lines": 25,
+    "sha256": "2f9c8c23a042e80b4dcd81305df186b39f7ab18f3e1f08acf105b01606bb37d7",
+    "chapter": "frontend-vue3--src--components--ConfirmDialog-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/components/PaginationBar.vue",
+    "lines": 32,
+    "sha256": "a8edd22f38ed45bf42d9d5567320b4acb83bea2f10e05389f227be68b85bbd70",
+    "chapter": "frontend-vue3--src--components--PaginationBar-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/components/ProductThumbnail.vue",
+    "lines": 24,
+    "sha256": "3db3dcbb9792b15abac5e4c171aef8c86c65b67ffb34d265d9e6a9b09ff4c552",
+    "chapter": "frontend-vue3--src--components--ProductThumbnail-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/components/ToastList.vue",
+    "lines": 17,
+    "sha256": "0f64825ffae4e586a9feccb73c6f162600afb0fc56d43ff94e3b5313b9f625b4",
+    "chapter": "frontend-vue3--src--components--ToastList-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/feedback.js",
+    "lines": 37,
+    "sha256": "d2446974b921691b921c16cbef2f36f83d8d2be4839c3112d66b226aeee53946",
+    "chapter": "frontend-vue3--src--feedback-js.md"
+  },
+  {
+    "file": "frontend-vue3/src/format.js",
+    "lines": 26,
+    "sha256": "9dd026897f90935d99a5fc7fe2fb39743995d735eae4b84289ac492a3f29f36a",
+    "chapter": "frontend-vue3--src--format-js.md"
+  },
+  {
+    "file": "frontend-vue3/src/main.js",
+    "lines": 7,
+    "sha256": "d7bf1c24c257dabc0c653f4f801b9bcc1899f9ffa8a6eb455ce3685315a832fd",
+    "chapter": "frontend-vue3--src--main-js.md"
+  },
+  {
+    "file": "frontend-vue3/src/router.js",
+    "lines": 85,
+    "sha256": "8b762ef5263c6194f4ec1694b335212333771681db8563e284580bc4b409940a",
+    "chapter": "frontend-vue3--src--router-js.md"
+  },
+  {
+    "file": "frontend-vue3/src/session.js",
+    "lines": 53,
+    "sha256": "ee2adfca2945d5fe9729cb2efbaf7f3a04e982783f60b33ed1da087517d35bc8",
+    "chapter": "frontend-vue3--src--session-js.md"
+  },
+  {
+    "file": "frontend-vue3/src/style.css",
+    "lines": 1521,
+    "sha256": "81c344406ccd49c15f2eaad83d9624c0ec64bc360823ea8d4eb9b73efc11d98e",
+    "chapter": "frontend-vue3--src--style-css.md"
+  },
+  {
+    "file": "frontend-vue3/src/views/CategoriesView.vue",
+    "lines": 165,
+    "sha256": "4d610e53ca35bdd72c26fc49625dc54cfa9f27e8d2cdfd047842c2337f478263",
+    "chapter": "frontend-vue3--src--views--CategoriesView-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/views/DashboardView.vue",
+    "lines": 157,
+    "sha256": "0ef61df06a4a1bc2625d27312499f95996fb430ebd6c7d93b3710703528b9a10",
+    "chapter": "frontend-vue3--src--views--DashboardView-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/views/InventoryView.vue",
+    "lines": 477,
+    "sha256": "5f1b4a80fedccf2918c5b2d31f864a9f6d17b9af58789daefba20df24db412ff",
+    "chapter": "frontend-vue3--src--views--InventoryView-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/views/LoginView.vue",
+    "lines": 104,
+    "sha256": "86a0b0168fb43bb61727dc6c4f6d5ee44185c3070b80e1518a8180bac95efa0c",
+    "chapter": "frontend-vue3--src--views--LoginView-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/views/OrdersView.vue",
+    "lines": 562,
+    "sha256": "def16eb04b49287bc3b035a6bd169bcf1f7d7ab1422f158002ec741f1f4df6ca",
+    "chapter": "frontend-vue3--src--views--OrdersView-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/views/ProductsView.vue",
+    "lines": 468,
+    "sha256": "ae9a49f9b728495a21bb013f41eae2bb0d5794700ea20918c731f83cb33f5ab9",
+    "chapter": "frontend-vue3--src--views--ProductsView-vue.md"
+  },
+  {
+    "file": "frontend-vue3/src/views/UsersView.vue",
+    "lines": 254,
+    "sha256": "84a6159253ecd808f45e32453fbef7fefef700045d0180abd4a0ba37f8fda79b",
+    "chapter": "frontend-vue3--src--views--UsersView-vue.md"
+  },
+  {
+    "file": "frontend-vue3/vite.config.js",
+    "lines": 12,
+    "sha256": "43f5d10419f710e7c1c54ff28e5322b108f6225a73c514f56e42c8c188231995",
+    "chapter": "frontend-vue3--vite-config-js.md"
+  },
+  {
+    "file": "scripts/准备MySQL.ps1",
+    "lines": 85,
+    "sha256": "4d066cbd4578acf89dc226c9ac2ffcf0decdc910ad9dac648de86f0d20186636",
+    "chapter": "scripts--准备MySQL-ps1.md"
+  },
+  {
+    "file": "scripts/环境.ps1",
+    "lines": 37,
+    "sha256": "305a24c0deb6f2a2ec51ff4ebde245a7be65e0e99a6eac9ef382bceebde5e826",
+    "chapter": "scripts--环境-ps1.md"
+  },
+  {
+    "file": "停止商城.ps1",
+    "lines": 45,
+    "sha256": "e5ddbb98111e5201f5f824cf0072cfad1d954ba4ed5350fc63a2cc51b0ca14e8",
+    "chapter": "停止商城-ps1.md"
+  },
+  {
+    "file": "启动商城.ps1",
+    "lines": 72,
+    "sha256": "029c0431a6547f854d3b98a323e437f57b5fc50fde8bc1a1550fbb44729c3658",
+    "chapter": "启动商城-ps1.md"
+  },
+  {
+    "file": "检查项目.ps1",
+    "lines": 17,
+    "sha256": "7392330738a4bbc87b264e94d2b37608fe8b5aa2dfcc6a21588158f73aee7ae7",
+    "chapter": "检查项目-ps1.md"
+  }
+]

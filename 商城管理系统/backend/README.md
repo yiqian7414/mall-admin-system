@@ -2,6 +2,8 @@
 
 本目录保存 Java 17 及以上版本使用的 Spring Boot 后端源码、SQL、配置和集成测试。完整项目优先按 [项目运行说明](../README.md) 启动。
 
+库存变更统一经过 InventoryService，商品接口不接受 stock。图片校验后保存在本目录的 `data/uploads/products/`。新接口、业务例子和升级流程见 [库存管理与商品图片](../../docs/库存管理与商品图片.md)。
+
 单独开发后端时，在本目录执行：
 
 ```powershell

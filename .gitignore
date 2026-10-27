@@ -7,3 +7,14 @@ dist/
 *.log
 *.tar
 *.tar.gz
+.idea/
+*.iml
+.env
+.env.*
+*.cnf
+*.mv.db
+mall-before-*.sql
+*.mp4
+*.mov
+*.webm
+*.avi
